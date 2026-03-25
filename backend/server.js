@@ -11,17 +11,17 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json()); 
 app.use(cors());         
 
-// ✅ DATABASE CONNECTION
+// DATABASE CONNECTION
 const dbURI = process.env.MONGO_URI; 
 
 mongoose.connect(dbURI)
     .then(async () => {
-        console.log('Connected to MongoDB Atlas successfully.');
+        console.log('Database connection established successfully.');
         await initializeAdmin(); 
     })
     .catch((err) => {
         console.error('Database connection error:', err.message);
-        console.log('Error Detail: Check if MONGO_URI is correct in Render dashboard.');
+        console.log('Please verify the MONGO_URI in your environment settings.');
     });
 
 // Admin Initialization Logic 
@@ -39,11 +39,11 @@ async function initializeAdmin() {
             const hashedPassword = await bcrypt.hash('adminpassword123', 10);
             await User.create({
                 name: 'Shubham',
-                email: 'admin@glance.com', // Is email se login karna admin dashboard ke liye
+                email: 'admin@glance.com', 
                 password: hashedPassword,
                 role: 'admin'
             });
-            console.log('Initial Admin profile created successfully.');
+            console.log('Default admin profile has been created.');
         }
     } catch (error) {
         console.error('Admin initialization failed:', error.message);
@@ -62,5 +62,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });

@@ -3,12 +3,6 @@ const router = express.Router();
 const News = require('../models/News'); 
 const fetchuser = require('../middleware/fetchuser'); 
 const axios = require('axios'); 
-const { CohereClient } = require('cohere-ai');
-
-// Cohere AI Client Initialization
-const cohere = new CohereClient({
-    token: process.env.COHERE_API_KEY,
-});
 
 // ROUTE 1: Add a new article to the database - Login required
 router.post('/add', fetchuser, async (req, res) => {
@@ -45,48 +39,16 @@ router.delete('/delete/:id', fetchuser, async (req, res) => {
     }
 });
 
-// ROUTE 4: Fetch live news from external NewsAPI
+// ROUTE 4: Fetch live news from external GNews API
 router.get('/live', async (req, res) => {
     try {
-        const url = `https://newsapi.org/v2/everything?q=technology&language=en&apiKey=${process.env.NEWS_API_KEY}`;
+        // Tumhari .env file mein variable ka naam VITE_GNEWS_API_KEY tha, wahi use kiya hai
+        const url = `https://gnews.io/api/v4/top-headlines?category=technology&lang=en&apikey=${process.env.VITE_GNEWS_API_KEY}`;
         const response = await axios.get(url);
         res.status(200).json({ status: "ok", articles: response.data.articles });
     } catch (error) {
+        console.error("GNews API Error:", error.message);
         res.status(500).json({ error: "External API request failed" });
-    }
-});
-
-// ROUTE 5: Generate AI summary using Cohere for a technology article
-router.get('/generate', async (req, res) => {
-    try {
-        // Fetch a single article for summarization
-        const newsUrl = `https://newsapi.org/v2/everything?q=technology&language=en&pageSize=1&apiKey=${process.env.NEWS_API_KEY}`;
-        const newsResponse = await axios.get(newsUrl);
-        const article = newsResponse.data.articles[0];
-
-        if (!article) return res.status(404).json({ error: "No news found to summarize" });
-
-        // Request summary from Cohere AI model
-        const response = await cohere.chat({
-            model: 'command-r-08-2024',
-            message: `Summarize this news in exactly 2 catchy lines. Use Hinglish (Hindi written in English alphabet).
-            Title: ${article.title}
-            Description: ${article.description}`,
-        });
-
-        const summary = response.text.trim();
-
-        res.status(200).json({
-            success: true,
-            aiSummary: summary,
-            originalTitle: article.title,
-            url: article.url,
-            imageUrl: article.urlToImage
-        });
-
-    } catch (error) {
-        console.error("Cohere AI Error:", error.message);
-        res.status(500).json({ error: "AI processing failed" });
     }
 });
 

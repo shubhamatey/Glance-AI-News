@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
 // DATA & HELPER FUNCTIONS
 const categories = ['Top Stories', 'Politics', 'Business', 'Technology', 'Sports', 'Entertainment'];
 
@@ -164,7 +166,7 @@ export default function App() {
   const handleLoadMore = () => setPage(prev => prev + 1);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/interactions')
+    fetch(`${BACKEND_URL}/api/interactions`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -206,7 +208,7 @@ export default function App() {
   const generateSummary = async (article) => {
     setIsSummarizing(true); setSummary(''); 
     try {
-      const response = await fetch('http://localhost:5000/api/summarize', {
+      const response = await fetch(`${BACKEND_URL}/api/summarize`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ articleUrl: article.url, title: article.title, description: article.description })
       });
@@ -263,7 +265,7 @@ export default function App() {
       : { email: authEmail, password: authPassword };
       
     try {
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`${BACKEND_URL}${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -318,7 +320,7 @@ export default function App() {
       setSavedArticlesList(prev => prev.find(a => a.url === url) ? prev.filter(a => a.url !== url) : [...prev, article]);
     }
     try {
-      await fetch('http://localhost:5000/api/interactions', {
+      await fetch(`${BACKEND_URL}/api/interactions`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: article.url, title: article.title, image: article.image, description: article.description, action: action })
       });
@@ -330,7 +332,7 @@ export default function App() {
     if (isLoggedIn) {
       setSharedArticlesList(prev => prev.find(a => a.url === article.url) ? prev : [article, ...prev]);
       try {
-        await fetch('http://localhost:5000/api/interactions', {
+        await fetch(`${BACKEND_URL}/api/interactions`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: article.url, title: article.title, image: article.image, description: article.description, action: 'share' })
         });
@@ -452,14 +454,14 @@ export default function App() {
                     {isLoggedIn && currentUser?.role === 'admin' && (
                       <button onClick={async () => {
                           try {
-                            const res = await fetch('http://localhost:5000/api/admin/stats');
+                            const res = await fetch(`${BACKEND_URL}/api/admin/stats`);
                             const data = await res.json();
                             setAdminStats(data);
                             setViewMode('admin');
                             setIsSearching(false);
                             setIsMenuOpen(false);
                           } catch(e) { console.error("Admin fetch error:", e); }
-                        }} 
+                        }}
                         className="cursor-pointer flex items-center justify-between w-full text-left px-3.5 py-2.5 text-[13px] font-bold text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-xl transition-all group mt-0.5"
                       >
                         <span className="flex items-center gap-3">
