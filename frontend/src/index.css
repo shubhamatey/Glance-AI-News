@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Configuration for Dark Mode variants using Tailwind CSS */
+@variant dark (&:where(.dark, .dark *));
+
+/** * SHIMMER ANIMATION SETUP
+ * Used for Skeleton Loaders to provide visual feedback during data fetching.
+ */
+@keyframes shimmer {
+  0% { 
+    background-position: -468px 0; 
+  }
+  100% { 
+    background-position: 468px 0; 
+  }
+}
+
+/**
+ * Utility class for Shimmer Effect
+ * Configured with Slate-based color palette for seamless UI integration.
+ */
+.animate-shimmer {
+  /* Light Mode: Slate-100 to Slate-200 gradient */
+  background: linear-gradient(to right, #f1f5f9 8%, #e2e8f0 18%, #f1f5f9 33%);
+  background-size: 800px 104px;
+  animation: shimmer 1.5s linear infinite forwards;
+}
+
+/* Dark Mode Override: Slate-800 to Slate-700 gradient */
+.dark .animate-shimmer {
+  background: linear-gradient(to right, #1e293b 8%, #334155 18%, #1e293b 33%);
+}
+
+/** * Note: Global body styles and typography are managed via Tailwind 
+ * classes in the root App.jsx to maintain design consistency.
+ */
