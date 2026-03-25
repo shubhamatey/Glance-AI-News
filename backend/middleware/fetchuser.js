@@ -12,7 +12,7 @@ const fetchuser = (req, res, next) => {
 
     try {
         // Verify token with the secret key used during login
-        const data = jwt.verify(token, 'glance_secret_key'); 
+        const data = jwt.verify(token, process.env.JWT_SECRET); 
         req.user = data; 
         
         // Pass control to the next middleware or route handler
