@@ -416,7 +416,7 @@ export default function App() {
                 )}
 
                 {isMenuOpen && (
-                  <div className="absolute right-0 top-full mt-3 w-56 bg-white/90 dark:bg-slate-900/95 backdrop-blur-xl border border-white dark:border-slate-800 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] dark:shadow-black/50 rounded-2xl p-1.5 z-50 flex flex-col origin-top-right transition-all animate-in fade-in zoom-in-95 duration-200">
+                  <div className="absolute right-0 top-full mt-3 w-56 bg-white/90 dark:bg-slate-900/95 backdrop-blur-xl border border-white dark:border-slate-800 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] dark:shadow-black/50 rounded-2xl p-1.5 z-50 flex flex-col text-[0.67rem] origin-top-right transition-all animate-in fade-in zoom-in-95 duration-200">
                     
                     {isLoggedIn && currentUser?.name && (
                        <div className="px-3.5 py-3 mb-1.5 bg-cyan-50/50 dark:bg-slate-800/50 rounded-xl border border-cyan-100/50 dark:border-slate-700/50 flex flex-col justify-center">
@@ -757,7 +757,8 @@ export default function App() {
       {/* COMPACT PREMIUM AUTH MODAL */}
       {isAuthModalOpen && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transition-colors duration-300 border border-slate-100 dark:border-slate-800 p-5 text-center relative zoom-in-95 animate-in">
+          {/* Yahan `[360px]` se width lock hui aur `[0.67rem]` se relative scaling reset hui */}
+<div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-[360px] text-[0.67rem] overflow-hidden shadow-2xl transition-colors duration-300 border border-slate-100 dark:border-slate-800 p-5 text-center relative zoom-in-95 animate-in">
             <button onClick={() => setIsAuthModalOpen(false)} className="absolute top-3 right-3 cursor-pointer text-slate-400 hover:text-rose-500 bg-slate-50 dark:bg-slate-800 rounded-full w-7 h-7 flex items-center justify-center transition-colors">✕</button>
             <div className="w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 rounded-xl flex items-center justify-center mx-auto mb-2 transform rotate-3">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 -rotate-3">
