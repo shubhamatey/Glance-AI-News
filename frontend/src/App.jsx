@@ -424,12 +424,12 @@ export default function App() {
                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Logged in as</p>
                            {currentUser.role === 'admin' && <span className="text-[10px] font-bold text-amber-600 bg-amber-100 dark:bg-amber-900/40 px-1.5 py-0.5 rounded text-center leading-none">ADMIN</span>}
                          </div>
-                         <p className="text-[14px] font-black text-slate-800 dark:text-white truncate leading-tight">{currentUser.name}</p>
+                         <p className="text-base font-black text-slate-800 dark:text-white truncate leading-tight">{currentUser.name}</p>
                          <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">{currentUser.email}</p>
                        </div>
                     )}
 
-                    <button onClick={() => { setIsSearching(false); setViewMode('saved'); setIsMenuOpen(false); }} className="cursor-pointer flex items-center justify-between w-full text-left px-3.5 py-2.5 text-[13px] font-bold text-slate-700 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400 rounded-xl transition-all group">
+                    <button onClick={() => { setIsSearching(false); setViewMode('saved'); setIsMenuOpen(false); }} className="cursor-pointer flex items-center justify-between w-full text-left px-3.5 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400 rounded-xl transition-all group">
                       <span className="flex items-center gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-4 h-4 text-slate-400 dark:text-slate-500 group-hover:text-cyan-500 transition-colors">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
@@ -757,7 +757,7 @@ export default function App() {
       {/* COMPACT PREMIUM AUTH MODAL */}
       {isAuthModalOpen && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-[360px] overflow-hidden shadow-2xl transition-colors duration-300 border border-slate-100 dark:border-slate-800 p-5 text-center relative zoom-in-95 animate-in">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl transition-colors duration-300 border border-slate-100 dark:border-slate-800 p-5 text-center relative zoom-in-95 animate-in">
             <button onClick={() => setIsAuthModalOpen(false)} className="absolute top-3 right-3 cursor-pointer text-slate-400 hover:text-rose-500 bg-slate-50 dark:bg-slate-800 rounded-full w-7 h-7 flex items-center justify-center transition-colors">✕</button>
             <div className="w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 rounded-xl flex items-center justify-center mx-auto mb-2 transform rotate-3">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 -rotate-3">
@@ -765,10 +765,10 @@ export default function App() {
               </svg>
             </div>
             <h2 className="text-xl font-black text-slate-900 dark:text-white mb-1 tracking-tight">{authMode === 'signup' ? 'Join Glance' : 'Welcome Back'}</h2>
-            <p className="text-slate-500 dark:text-slate-400 text-[12px] font-medium mb-4 leading-snug px-1">{authMessage || (authMode === 'signup' ? "Create a free account to save unlimited articles" : "Log in to access your saved articles")}</p>
+            <p className="text-slate-500 dark:text-slate-400 text-xs font-medium mb-4 leading-snug px-1">{authMessage || (authMode === 'signup' ? "Create a free account to save unlimited articles" : "Log in to access your saved articles")}</p>
 
             {authError && (
-              <div className="bg-rose-50 dark:bg-rose-500/10 text-rose-500 dark:text-rose-400 text-[11px] px-3 py-2 rounded-lg mb-3 font-semibold border border-rose-100 dark:border-rose-500/20 text-left flex items-start gap-2">
+              <div className="bg-rose-50 dark:bg-rose-500/10 text-rose-500 dark:text-rose-400 text-[0.7rem] px-3 py-2 rounded-lg mb-3 font-semibold border border-rose-100 dark:border-rose-500/20 text-left flex items-start gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5 mt-0.5 shrink-0"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" /></svg>
                 <span>{authError}</span>
               </div>
@@ -785,7 +785,7 @@ export default function App() {
                 Continue with Google
               </button>
               
-              <div className="flex items-center gap-2 py-0.5"><div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div><span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">OR</span><div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div></div>
+              <div className="flex items-center gap-2 py-0.5"><div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div><span className="text-[0.65rem] font-bold text-slate-400 uppercase tracking-wider">OR</span><div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div></div>
               
               {authMode === 'signup' && (
                 <input type="text" placeholder="Full Name" value={authName} onChange={(e) => setAuthName(e.target.value)} required className="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-300 dark:border-slate-700 rounded-xl px-3 py-2 text-xs font-medium focus:outline-none focus:ring-1 focus:ring-cyan-500 text-slate-900 dark:text-white" />
