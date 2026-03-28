@@ -21,7 +21,6 @@ mongoose.connect(dbURI)
     })
     .catch((err) => {
         console.error('Database connection error:', err.message);
-        console.log('Please verify the MONGO_URI in your environment settings.');
     });
 
 // Admin Initialization Logic 
@@ -50,8 +49,25 @@ async function initializeAdmin() {
     }
 }
 
+// --- YE SECTION UPDATE KIYA HAI (NEWS PROXY) ---
+app.get('/api/news', async (req, res) => {
+    try {
+        const { category, q, page = 1 } = req.query;
+        const apiKey = process.env.GNEWS_API_KEY; 
+        
+        let url = q 
+            ? `https://gnews.io/api/v4/search?q=${q}&lang=en&country=in&max=8&page=${page}&apikey=${apiKey}`
+            : `https://gnews.io/api/v4/top-headlines?category=${category || 'general'}&lang=en&country=in&max=8&page=${page}&apikey=${apiKey}`;
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Backend news fetch failed" });
+    }
+});
+
 // Routes
-app.use('/api/news', require('./routes/news')); 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/summarize', require('./routes/summarize'));
 app.use('/api/interactions', require('./routes/interactions'));

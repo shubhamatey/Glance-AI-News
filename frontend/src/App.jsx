@@ -185,11 +185,16 @@ export default function App() {
       if (viewMode === 'saved' || viewMode === 'shared' || viewMode === 'admin') return; 
       page === 1 ? setIsLoading(true) : setIsLoadingMore(true);
       try {
-        let url = isSearching && submittedQuery 
-          ? `https://gnews.io/api/v4/search?q=${submittedQuery}&lang=en&country=in&max=8&page=${page}&apikey=${GNEWS_API_KEY}`
-          : `https://gnews.io/api/v4/top-headlines?category=${getApiCategory(activeCategory || 'Top Stories')}&lang=en&country=in&max=8&page=${page}&apikey=${GNEWS_API_KEY}&t=${Date.now()}`;
+        let url = `${BACKEND_URL}/api/news?page=${page}`;
+        if (isSearching && submittedQuery) {
+          url += `&q=${submittedQuery}`;
+        } else {
+          url += `&category=${getApiCategory(activeCategory || 'Top Stories')}`;
+        }
+        
         const response = await fetch(url);
         const data = await response.json();
+        
         if (data.articles) {
           page === 1 ? setArticles(data.articles) : setArticles(prev => [...prev, ...data.articles]);
           if(page === 1) setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
@@ -203,7 +208,7 @@ export default function App() {
       finally { setIsLoading(false); setIsLoadingMore(false); }
     };
     fetchNews();
-  }, [activeCategory, page, refreshTrigger, viewMode, GNEWS_API_KEY, isSearching, submittedQuery]); 
+  }, [activeCategory, page, refreshTrigger, viewMode, isSearching, submittedQuery]);
 
   const generateSummary = async (article) => {
     setIsSummarizing(true); setSummary(''); 

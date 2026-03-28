@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 
-/**
- * AiSummary Component
- * Fetches and displays AI-generated news summaries from the backend.
- */
 const AiSummary = () => {
     const [newsData, setNewsData] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    /**
-     * Handles the API request to fetch an AI-generated summary.
-     * Targeted Endpoint: http://localhost:5000/api/news/generate
-     */
+    // Vercel par deployment ke liye dynamic URL use karna zaroori hai
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000';
+
     const fetchSummary = async () => {
         setLoading(true);
         try {
-            // Fetching data from the local development server
-            const response = await fetch('http://localhost:5000/api/news/generate');
+            // Localhost hata kar BACKEND_URL use kiya hai
+            const response = await fetch(`${BACKEND_URL}/api/news/generate`);
             const data = await response.json();
 
             if (data.success) {
@@ -27,7 +22,7 @@ const AiSummary = () => {
             }
         } catch (error) {
             console.error("Network/Fetch Error:", error);
-            alert("Unable to connect to the backend server. Please ensure the Node.js server is running on port 5000.");
+            alert("Unable to connect to the backend server.");
         } finally {
             setLoading(false);
         }
