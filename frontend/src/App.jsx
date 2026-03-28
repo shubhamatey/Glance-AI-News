@@ -360,7 +360,7 @@ export default function App() {
       <header className={`sticky top-0 z-[120] w-full transition-transform duration-300 ease-in-out ${isNavVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <nav className="bg-[#f0f5f5]/95 dark:bg-slate-950/95 backdrop-blur-md shadow-sm transition-colors duration-300">
           <div className="border-b border-slate-300/60 dark:border-slate-800/60">
-            <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 flex flex-row items-center justify-between gap-4">
+            <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-3 flex flex-row items-center justify-between gap-4">
               
               <h1 onClick={clearSearch} className="cursor-pointer text-3xl font-black tracking-tight text-slate-950 dark:text-white shrink-0 hover:opacity-80 transition-opacity">
                 Glance
@@ -518,7 +518,7 @@ export default function App() {
             </div>
           </div>
           
-          <div className="max-w-6xl mx-auto px-4 md:px-6 py-2 flex items-center md:justify-center gap-2 overflow-x-auto scrollbar-hide min-w-0">
+          <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-2 flex items-center md:justify-center gap-2 overflow-x-auto scrollbar-hide min-w-0">
             {categories.map((cat) => (
               <button key={cat} onClick={() => handleCategoryChange(cat)}
                 className={`cursor-pointer whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shrink-0 ${activeCategory === cat && viewMode === 'home' && !isSearching ? 'bg-cyan-700 text-white shadow-sm' : 'bg-white/60 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400'}`}
@@ -534,7 +534,7 @@ export default function App() {
       {viewMode === 'home' && !isSearching && (
         <div className="relative z-10 border-b border-slate-300/50 dark:border-slate-800/50 transition-colors duration-300 pt-12 pb-10">
           
-          <div className="max-w-4xl mx-auto px-6 text-center w-full">
+          <div className="max-w-6xl mx-auto px-6 text-center w-full">
             <h2 className="text-4xl md:text-5xl font-black mb-4 text-slate-950 dark:text-white tracking-tight leading-tight">
               Read Less <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 dark:from-slate-200 to-cyan-600 dark:to-cyan-400">Understand More</span>
             </h2>
@@ -542,7 +542,7 @@ export default function App() {
               Drop any news link below to get an instant AI summary
             </p>
             
-            <div className="relative group max-w-xl mx-auto shadow-lg shadow-slate-300/50 dark:shadow-black/50 rounded-2xl bg-white/90 dark:bg-slate-900/90 p-1 border border-slate-300 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-colors z-20">
+            <div className="relative group max-w-3xl mx-auto shadow-lg shadow-slate-300/50 dark:shadow-black/50 rounded-2xl bg-white/90 dark:bg-slate-900/90 p-1 border border-slate-300 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-colors z-20">
               <input 
                 type="text" 
                 value={heroInputUrl} 
@@ -562,7 +562,7 @@ export default function App() {
       )}
 
       {/* NEWS FEED / DASHBOARD SECTION */}
-      <main className="max-w-6xl mx-auto mt-8 px-6 pb-20 relative z-10">
+      <main className="max-w-[1400px] mx-auto mt-8 px-6 pb-20 relative z-10">
         <div className="flex items-center mb-6 gap-4">
           <h3 className="text-xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-3 transition-colors duration-300">
             {viewMode === 'admin' ? '👑 Admin Dashboard' : (viewMode === 'saved' ? 'Your Saved Articles' : (viewMode === 'shared' ? 'Your Shared Articles' : (isSearching ? `Results for: "${submittedQuery}"` : activeCategory)))}
