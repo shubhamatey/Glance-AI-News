@@ -4,19 +4,19 @@
 @variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  /* 1. Mobile (100%)*/
+  /* 1. Mobile (100% Zoom)*/
   html {
     font-size: 16px; 
   }
 
-  /* 2. Tablet (125%)*/
+  /* 2. Tablet (125% Zoom)*/
   @media (min-width: 768px) {
     html {
       font-size: 20px; 
     }
   }
 
-  /* 3. Laptop/Desktop (150%)*/
+  /* 3. Laptop/Desktop (150% Zoom)*/
   @media (min-width: 1024px) {
     html {
       font-size: 24px; 
