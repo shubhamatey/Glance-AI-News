@@ -532,15 +532,16 @@ export default function App() {
 
       {/* HERO SECTION */}
       {viewMode === 'home' && !isSearching && (
-        /* min-h ensures the feed stays below the fold */
-        <div className="relative z-10 border-b border-slate-300/50 dark:border-slate-800/50 transition-colors duration-300 min-h-[calc(100vh-140px)] flex flex-col">
+        <div className="relative z-10 border-b border-slate-300/50 dark:border-slate-800/50 transition-colors duration-300 pt-12 pb-10">
           
-          {/*Added some extra gap*/}
-          <div className="max-w-4xl mx-auto pt-12 pb-10 px-6 text-center w-full">
-            <h2 className="text-4xl md:text-5xl font-black mb-4 text-slate-950 dark:text-white tracking-tight leading-tight">Read Less <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 dark:from-slate-200 to-cyan-600 dark:to-cyan-400">Understand More</span></h2>
-            <p className="text-slate-600 dark:text-slate-400 mb-8 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">Drop any news link below to get an instant AI summary</p>
+          <div className="max-w-4xl mx-auto px-6 text-center w-full">
+            <h2 className="text-4xl md:text-5xl font-black mb-4 text-slate-950 dark:text-white tracking-tight leading-tight">
+              Read Less <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 dark:from-slate-200 to-cyan-600 dark:to-cyan-400">Understand More</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 mb-8 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
+              Drop any news link below to get an instant AI summary
+            </p>
             
-            {/*A balanced search bar */}
             <div className="relative group max-w-xl mx-auto shadow-lg shadow-slate-300/50 dark:shadow-black/50 rounded-2xl bg-white/90 dark:bg-slate-900/90 p-1 border border-slate-300 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-colors z-20">
               <input 
                 type="text" 
@@ -557,9 +558,6 @@ export default function App() {
               </button>
             </div>
           </div>
-
-          {/* Spacer to push the news feed out of sight */}
-          <div className="flex-1"></div>
         </div>
       )}
 
