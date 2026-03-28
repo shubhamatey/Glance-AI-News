@@ -16,7 +16,7 @@ const AiSummary = () => {
         setLoading(true);
         try {
             // Fetching data from the local development server
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/summarize`);
+            const response = await fetch('http://localhost:5000/api/news/generate');
             const data = await response.json();
 
             if (data.success) {
