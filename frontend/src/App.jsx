@@ -128,8 +128,6 @@ export default function App() {
     }
   }, [isDarkMode]);
 
-  const GNEWS_API_KEY = import.meta.env.VITE_GNEWS_API_KEY; 
-
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -208,7 +206,7 @@ export default function App() {
       finally { setIsLoading(false); setIsLoadingMore(false); }
     };
     fetchNews();
-  }, [activeCategory, page, refreshTrigger, viewMode, isSearching, submittedQuery]);
+  }, [activeCategory, page, refreshTrigger, viewMode, isSearching, submittedQuery]); 
 
   const generateSummary = async (article) => {
     setIsSummarizing(true); setSummary(''); 
@@ -360,7 +358,7 @@ export default function App() {
       <header className={`sticky top-0 z-[120] w-full transition-transform duration-300 ease-in-out ${isNavVisible ? 'translate-y-0' : '-translate-y-full'}`}>
         <nav className="bg-[#f0f5f5]/95 dark:bg-slate-950/95 backdrop-blur-md shadow-sm transition-colors duration-300">
           <div className="border-b border-slate-300/60 dark:border-slate-800/60">
-            <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 flex flex-row items-center justify-between gap-4">
+            <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-3 flex flex-row items-center justify-between gap-4">
               
               <h1 onClick={clearSearch} className="cursor-pointer text-3xl font-black tracking-tight text-slate-950 dark:text-white shrink-0 hover:opacity-80 transition-opacity">
                 Glance
@@ -416,7 +414,7 @@ export default function App() {
                 )}
 
                 {isMenuOpen && (
-                  <div className="absolute right-0 top-full mt-3 w-56 bg-white/90 dark:bg-slate-900/95 backdrop-blur-xl border border-white dark:border-slate-800 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] dark:shadow-black/50 rounded-2xl p-1.5 z-50 flex flex-col text-[0.67rem] origin-top-right transition-all animate-in fade-in zoom-in-95 duration-200">
+                  <div className="absolute right-0 top-full mt-3 w-56 bg-white/90 dark:bg-slate-900/95 backdrop-blur-xl border border-white dark:border-slate-800 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] dark:shadow-black/50 rounded-2xl p-1.5 z-50 flex flex-col origin-top-right transition-all animate-in fade-in zoom-in-95 duration-200">
                     
                     {isLoggedIn && currentUser?.name && (
                        <div className="px-3.5 py-3 mb-1.5 bg-cyan-50/50 dark:bg-slate-800/50 rounded-xl border border-cyan-100/50 dark:border-slate-700/50 flex flex-col justify-center">
@@ -424,8 +422,8 @@ export default function App() {
                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Logged in as</p>
                            {currentUser.role === 'admin' && <span className="text-[10px] font-bold text-amber-600 bg-amber-100 dark:bg-amber-900/40 px-1.5 py-0.5 rounded text-center leading-none">ADMIN</span>}
                          </div>
-                         <p className="text-base font-black text-slate-800 dark:text-white truncate leading-tight">{currentUser.name}</p>
-                         <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">{currentUser.email}</p>
+                         <p className="text-sm font-black text-slate-800 dark:text-white truncate leading-tight">{currentUser.name}</p>
+                         <p className="text-xs font-medium text-slate-500 dark:text-slate-400 truncate mt-0.5">{currentUser.email}</p>
                        </div>
                     )}
 
@@ -446,7 +444,7 @@ export default function App() {
                           setIsSearching(false); setViewMode('shared'); setIsMenuOpen(false); 
                         }
                       }} 
-                      className="cursor-pointer flex items-center justify-between w-full text-left px-3.5 py-2.5 text-[13px] font-bold text-slate-700 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400 rounded-xl transition-all group mt-0.5">
+                      className="cursor-pointer flex items-center justify-between w-full text-left px-3.5 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400 rounded-xl transition-all group mt-0.5">
                       <span className="flex items-center gap-3">
                         <span className={`text-lg leading-none transition-all ${!isLoggedIn ? 'text-slate-400 group-hover:text-rose-500' : 'grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100'}`}>
                           {isLoggedIn ? '🔗' : '🔒'}
@@ -467,7 +465,7 @@ export default function App() {
                             setIsMenuOpen(false);
                           } catch(e) { console.error("Admin fetch error:", e); }
                         }}
-                        className="cursor-pointer flex items-center justify-between w-full text-left px-3.5 py-2.5 text-[13px] font-bold text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-xl transition-all group mt-0.5"
+                        className="cursor-pointer flex items-center justify-between w-full text-left px-3.5 py-2.5 text-sm font-bold text-amber-700 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/20 rounded-xl transition-all group mt-0.5"
                       >
                         <span className="flex items-center gap-3">
                           <span className="text-lg leading-none">👑</span> Admin Dashboard
@@ -476,7 +474,7 @@ export default function App() {
                     )}
                     
                     {!isLoggedIn && (
-                      <button onClick={() => openAuthModal('signup', '')} className="cursor-pointer flex items-center gap-3 w-full text-left px-3.5 py-2.5 text-[13px] font-bold text-slate-700 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400 rounded-xl transition-all group mt-0.5">
+                      <button onClick={() => openAuthModal('signup', '')} className="cursor-pointer flex items-center gap-3 w-full text-left px-3.5 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-cyan-50 dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400 rounded-xl transition-all group mt-0.5">
                         <span className="text-lg leading-none grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all">👤</span> 
                         Login / Sign up
                       </button>
@@ -486,7 +484,7 @@ export default function App() {
                     
                     <button 
                       onClick={() => { setIsDarkMode(!isDarkMode); setIsMenuOpen(false); }} 
-                      className="cursor-pointer flex items-center gap-3 w-full text-left px-3.5 py-2.5 text-[13px] font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all mb-0.5"
+                      className="cursor-pointer flex items-center gap-3 w-full text-left px-3.5 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-all mb-0.5"
                     >
                       <span className="text-lg leading-none text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300">
                         {isDarkMode ? '☀️' : '🌙'}
@@ -498,7 +496,7 @@ export default function App() {
                       <button 
                         onClick={handleLogout} 
                         disabled={isLoggingOut}
-                        className={`flex items-center gap-3 w-full text-left px-3.5 py-2.5 text-[13px] font-bold rounded-xl transition-all mt-0.5 ${isLoggingOut ? 'text-slate-400 cursor-wait bg-slate-50 dark:bg-slate-800/50' : 'cursor-pointer text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10'}`}
+                        className={`flex items-center gap-3 w-full text-left px-3.5 py-2.5 text-sm font-bold rounded-xl transition-all mt-0.5 ${isLoggingOut ? 'text-slate-400 cursor-wait bg-slate-50 dark:bg-slate-800/50' : 'cursor-pointer text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-500/10'}`}
                       >
                         {isLoggingOut ? (
                            <>
@@ -518,7 +516,7 @@ export default function App() {
             </div>
           </div>
           
-          <div className="max-w-6xl mx-auto px-4 md:px-6 py-2 flex items-center md:justify-center gap-2 overflow-x-auto scrollbar-hide min-w-0">
+          <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-2 flex items-center md:justify-center gap-2 overflow-x-auto scrollbar-hide min-w-0">
             {categories.map((cat) => (
               <button key={cat} onClick={() => handleCategoryChange(cat)}
                 className={`cursor-pointer whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shrink-0 ${activeCategory === cat && viewMode === 'home' && !isSearching ? 'bg-cyan-700 text-white shadow-sm' : 'bg-white/60 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 border border-slate-300 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800 hover:text-cyan-700 dark:hover:text-cyan-400'}`}
@@ -534,13 +532,9 @@ export default function App() {
       {viewMode === 'home' && !isSearching && (
         <div className="relative z-10 border-b border-slate-300/50 dark:border-slate-800/50 transition-colors duration-300 pt-12 pb-10">
           
-          <div className="max-w-4xl mx-auto px-6 text-center w-full">
-            <h2 className="text-4xl md:text-5xl font-black mb-4 text-slate-950 dark:text-white tracking-tight leading-tight">
-              Read Less <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 dark:from-slate-200 to-cyan-600 dark:to-cyan-400">Understand More</span>
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 mb-8 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">
-              Drop any news link below to get an instant AI summary
-            </p>
+          <div className="max-w-6xl mx-auto px-6 text-center w-full">
+            <h2 className="text-4xl md:text-5xl font-black mb-4 text-slate-950 dark:text-white tracking-tight leading-tight">Read Less <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 dark:from-slate-200 to-cyan-600 dark:to-cyan-400">Understand More</span></h2>
+            <p className="text-slate-600 dark:text-slate-400 mb-8 text-base md:text-lg max-w-xl mx-auto font-medium leading-relaxed">Drop any news link below to get an instant AI summary</p>
             
             <div className="relative group max-w-xl mx-auto shadow-lg shadow-slate-300/50 dark:shadow-black/50 rounded-2xl bg-white/90 dark:bg-slate-900/90 p-1 border border-slate-300 dark:border-slate-700 hover:border-cyan-400 dark:hover:border-cyan-500 transition-colors z-20">
               <input 
@@ -562,7 +556,7 @@ export default function App() {
       )}
 
       {/* NEWS FEED / DASHBOARD SECTION */}
-      <main className="max-w-6xl mx-auto mt-8 px-6 pb-20 relative z-10">
+      <main className="max-w-[1400px] mx-auto mt-8 px-6 pb-20 relative z-10">
         <div className="flex items-center mb-6 gap-4">
           <h3 className="text-xl font-extrabold text-slate-800 dark:text-slate-100 tracking-tight flex items-center gap-3 transition-colors duration-300">
             {viewMode === 'admin' ? '👑 Admin Dashboard' : (viewMode === 'saved' ? 'Your Saved Articles' : (viewMode === 'shared' ? 'Your Shared Articles' : (isSearching ? `Results for: "${submittedQuery}"` : activeCategory)))}
@@ -740,7 +734,7 @@ export default function App() {
                         <span className="animate-[ping_1.5s_infinite] inline-flex h-1.5 w-1.5 rounded-full bg-cyan-400"></span>
                       </span>
                     </div>
-                    <p className="text-slate-400 dark:text-slate-500 text-[11px] mt-3 font-bold italic">Generating your Glance summary...</p>
+                    <p className="text-slate-400 dark:text-slate-500 text-xs mt-3 font-bold italic">Generating your Glance summary...</p>
                   </div>
                 ) : (
                   <div className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium whitespace-pre-wrap text-sm md:text-base">
@@ -757,8 +751,7 @@ export default function App() {
       {/* COMPACT PREMIUM AUTH MODAL */}
       {isAuthModalOpen && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
-          {/* Yahan `[360px]` se width lock hui aur `[0.67rem]` se relative scaling reset hui */}
-<div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-[360px] text-[0.67rem] overflow-hidden shadow-2xl transition-colors duration-300 border border-slate-100 dark:border-slate-800 p-5 text-center relative zoom-in-95 animate-in">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl w-full max-w-[22rem] overflow-hidden shadow-2xl transition-colors duration-300 border border-slate-100 dark:border-slate-800 p-5 text-center relative zoom-in-95 animate-in">
             <button onClick={() => setIsAuthModalOpen(false)} className="absolute top-3 right-3 cursor-pointer text-slate-400 hover:text-rose-500 bg-slate-50 dark:bg-slate-800 rounded-full w-7 h-7 flex items-center justify-center transition-colors">✕</button>
             <div className="w-10 h-10 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 rounded-xl flex items-center justify-center mx-auto mb-2 transform rotate-3">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 -rotate-3">
@@ -769,7 +762,7 @@ export default function App() {
             <p className="text-slate-500 dark:text-slate-400 text-xs font-medium mb-4 leading-snug px-1">{authMessage || (authMode === 'signup' ? "Create a free account to save unlimited articles" : "Log in to access your saved articles")}</p>
 
             {authError && (
-              <div className="bg-rose-50 dark:bg-rose-500/10 text-rose-500 dark:text-rose-400 text-[0.7rem] px-3 py-2 rounded-lg mb-3 font-semibold border border-rose-100 dark:border-rose-500/20 text-left flex items-start gap-2">
+              <div className="bg-rose-50 dark:bg-rose-500/10 text-rose-500 dark:text-rose-400 text-[0.75rem] px-3 py-2 rounded-lg mb-3 font-semibold border border-rose-100 dark:border-rose-500/20 text-left flex items-start gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-3.5 h-3.5 mt-0.5 shrink-0"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" /></svg>
                 <span>{authError}</span>
               </div>
@@ -821,7 +814,7 @@ export default function App() {
               </div>
               
               {authMode === 'signup' && isPasswordFocused && (
-                <p className="text-[10px] text-slate-400 dark:text-slate-500 text-left px-1 mt-1 leading-tight transition-opacity duration-300">
+                <p className="text-[0.65rem] text-slate-400 dark:text-slate-500 text-left px-1 mt-1 leading-tight transition-opacity duration-300">
                   Password must be at least 8 characters, including a number and a special symbol (!@#).
                 </p>
               )}
@@ -830,7 +823,7 @@ export default function App() {
                 {isAuthLoading ? '...' : (authMode === 'signup' ? 'Sign Up' : 'Log In')}
               </button>
             </form>
-            <div className="mt-3 text-[12px] font-medium text-slate-500 dark:text-slate-400">
+            <div className="mt-3 text-xs font-medium text-slate-500 dark:text-slate-400">
               {authMode === 'signup' ? (<>Already have an account? <span onClick={() => {setAuthMode('login'); setAuthError('');}} className="text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer">Log in</span></>) : (<>Don't have an account? <span onClick={() => {setAuthMode('signup'); setAuthError('');}} className="text-cyan-600 dark:text-cyan-400 hover:underline cursor-pointer">Sign up</span></>)}
             </div>
           </div>
