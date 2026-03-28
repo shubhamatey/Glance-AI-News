@@ -185,9 +185,7 @@ export default function App() {
       if (viewMode === 'saved' || viewMode === 'shared' || viewMode === 'admin') return; 
       page === 1 ? setIsLoading(true) : setIsLoadingMore(true);
       try {
-        let url = isSearching && submittedQuery 
-          ? `https://gnews.io/api/v4/search?q=${submittedQuery}&lang=en&country=in&max=8&page=${page}&apikey=${GNEWS_API_KEY}`
-          : `https://gnews.io/api/v4/top-headlines?category=${getApiCategory(activeCategory || 'Top Stories')}&lang=en&country=in&max=8&page=${page}&apikey=${GNEWS_API_KEY}&t=${Date.now()}`;
+        let url = `${BACKEND_URL}/api/news/live`;
         const response = await fetch(url);
         const data = await response.json();
         if (data.articles) {
