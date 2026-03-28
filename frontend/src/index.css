@@ -3,6 +3,27 @@
 /* Configuration for Dark Mode variants using Tailwind CSS */
 @variant dark (&:where(.dark, .dark *));
 
+@layer base {
+  /* 1. Mobile (100%)*/
+  html {
+    font-size: 16px; 
+  }
+
+  /* 2. Tablet (125%)*/
+  @media (min-width: 768px) {
+    html {
+      font-size: 20px; 
+    }
+  }
+
+  /* 3. Laptop/Desktop (150%) */
+  @media (min-width: 1024px) {
+    html {
+      font-size: 24px; 
+    }
+  }
+}
+
 /** * SHIMMER ANIMATION SETUP
  * Used for Skeleton Loaders to provide visual feedback during data fetching.
  */
